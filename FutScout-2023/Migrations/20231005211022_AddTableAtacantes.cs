@@ -16,7 +16,7 @@ namespace FutScout_2023.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Idade = table.Column<int>(type: "int", nullable: false),
-                    Clube = table.Column<int>(type: "int", nullable: false),
+                    Clube = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Partidas2023 = table.Column<int>(type: "int", nullable: false),
                     Gols2023 = table.Column<int>(type: "int", nullable: false),
                     Assists2023 = table.Column<int>(type: "int", nullable: false),
