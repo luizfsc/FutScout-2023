@@ -1,9 +1,16 @@
-﻿@model IEnumerable<FutScout_2023.Models.Clube>
+@model IEnumerable<FutScout_2023.Models.Clube>
 
 @{
     ViewData["Title"] = "Index";
 }
-
+<style>
+    #Aa {
+        text-decoration: none;
+        font-size: 14px;
+        margin-left: 4px;
+        margin-right: 2px;
+    }
+</style>
 <h1>Lista de Clubes</h1>
 
 @if (User.Identity.IsAuthenticated)
@@ -12,26 +19,39 @@
         <a asp-action="Create" class="btn btn-success">Cadastrar novo Clube</a>
     </p>
 }
+
+<form method="get">
+    <label for="Série">Filtrar Série:</label>
+    <select name="Série" id="Série">
+        <option value="" selected="@(string.IsNullOrEmpty(ViewBag.SérieSelecionada) ? "selected" : "")">Todos</option>
+        @foreach (var série in (List<string>)ViewBag.TodasAsSéries)
+        {
+            <option value="@série" selected='@(série == ViewBag.SérieSelecionada ? "selected" : null)'>@série</option>
+        }
+    </select>
+    <input type="submit" value="Filtrar" class="btn btn-primary">
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                @Html.DisplayNameFor(model => model.Nome)<a asp-action="Index" asp-route-sortBy="Nome" asp-route-sortDirection="desc" id="Aa">↓</a><a asp-action="Index" asp-route-sortBy="Nome" asp-route-sortDirection="asc" id="Aa">↑</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
+                @Html.DisplayNameFor(model => model.Estado)<a asp-action="Index" asp-route-sortBy="Estado" asp-route-sortDirection="desc" id="Aa">↓</a><a asp-action="Index" asp-route-sortBy="Estado" asp-route-sortDirection="asc" id="Aa">↑</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Série)
+                @Html.DisplayNameFor(model => model.Série)<a asp-action="Index" asp-route-sortBy="Série" asp-route-sortDirection="desc" id="Aa">↓</a><a asp-action="Index" asp-route-sortBy="Série" asp-route-sortDirection="asc" id="Aa">↑</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.gols2021)
+                @Html.DisplayNameFor(model => model.gols2021)<a asp-action="Index" asp-route-sortBy="gols2021" asp-route-sortDirection="desc" id="Aa">↓</a><a asp-action="Index" asp-route-sortBy="gols2021" asp-route-sortDirection="asc" id="Aa">↑</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.gols2022)
+                @Html.DisplayNameFor(model => model.gols2022)<a asp-action="Index" asp-route-sortBy="gols2022" asp-route-sortDirection="desc" id="Aa">↓</a><a asp-action="Index" asp-route-sortBy="gols2022" asp-route-sortDirection="asc" id="Aa">↑</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.gols2023)
+                @Html.DisplayNameFor(model => model.gols2023)<a asp-action="Index" asp-route-sortBy="gols2023" asp-route-sortDirection="desc" id="Aa">↓</a><a asp-action="Index" asp-route-sortBy="gols2023" asp-route-sortDirection="asc" id="Aa">↑</a>
             </th>
             <th></th>
         </tr>
@@ -63,13 +83,14 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
-                    
-                             
-                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+                     
+                     
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+                  
                     }
-    
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+               
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
